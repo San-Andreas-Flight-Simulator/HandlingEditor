@@ -22,11 +22,10 @@ local function constructMenu(handlingData)
             v.value = string.format("%s, %s, %s", toNumber(x), toNumber(y), toNumber(z))
         end
 
-        -- Use description from config.lua if available
         local description = "Type: ~b~" .. v.type
         for _, param in pairs(handlingVariables) do
             if param.name == v.name then
-                description = description .. "\nDescription: ~b~" .. param.desc
+                description = description .. "\n~w~Description: ~b~" .. param.desc
                 break
             end
         end
@@ -115,7 +114,6 @@ handlingMenu.OnItemSelect = function(_, item, index)
     end
 end
 
--- add_ace group.admin command.handling allow
 RegisterCommand("handling", function()
     local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
     if vehicle then
