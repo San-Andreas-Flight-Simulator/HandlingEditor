@@ -57,7 +57,7 @@ local function SetVehicleHandlingData(vehicle, data, value)
                 if int and int == 1 then
                     SetVehicleHandlingInt(vehicle, "CHandlingData", data, tonumber(value))
                 elseif float and float == 1 then
-                    SetVehicleHandlingFloat(vehicle, "CHandlingData", data, tonumber(value))
+                    SetVehicleHandlingFloat(vehicle, "CHandlingData", data, tonumber(value)+.0)
                 elseif vector3 and vector3 == 1 then
                     SetVehicleHandlingVector(vehicle, "CHandlingData", data, value)
                 else
