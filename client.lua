@@ -31,7 +31,7 @@ local function constructMenu(handlingData)
             end
         end
 
-        local button = UIMenuItem.New(v.name, description)
+        local button = UIMenuItem.New(v.name, "Type: ~b~"..v.type.."\n"..description)
         button:RightLabel(v.value)
         handlingMenu:AddItem(button)
     end
