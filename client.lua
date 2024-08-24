@@ -22,7 +22,16 @@ local function constructMenu(handlingData)
             v.value = string.format("%s, %s, %s", toNumber(x), toNumber(y), toNumber(z))
         end
 
-        local button = UIMenuItem.New(v.name, "Type: ~b~"..v.type)
+        -- Use description from config.lua if available
+        local description = "Type: ~b~" .. v.type
+        for _, param in pairs(handlingVariables) do
+            if param.name == v.name then
+                description = param.desc
+                break
+            end
+        end
+
+        local button = UIMenuItem.New(v.name, description)
         button:RightLabel(v.value)
         handlingMenu:AddItem(button)
     end
@@ -42,10 +51,10 @@ end
 local function SetVehicleHandlingData(vehicle, data, value)
     if DoesEntityExist(vehicle) then
         for _, v in pairs(handlingVariables) do
-            if v == data then
-                local int = string.find(v, "n")
-                local float = string.find(v, "f")
-                local vector3 = string.find(v, "vec")
+            if v.name == data then
+                local int = string.find(data, "n")
+                local float = string.find(data, "f")
+                local vector3 = string.find(data, "vec")
                 if int and int == 1 then
                     SetVehicleHandlingInt(vehicle, "CHandlingData", data, tonumber(value))
                 elseif float and float == 1 then
@@ -64,15 +73,15 @@ local function GetVehicleHandlingData(vehicle)
     local data = {}
     if DoesEntityExist(vehicle) then
         for _, v in pairs(handlingVariables) do
-            local int = string.find(v, "^n")
-            local float = string.find(v, "^f")
-            local vector3 = string.find(v, "^vec")
-            if int and int == 1 and GetVehicleHandlingInt(vehicle, "CHandlingData", v) then
-                table.insert(data, {name = v, value = GetVehicleHandlingInt(vehicle, "CHandlingData", v), type = "int"})
-            elseif float and float == 1 and GetVehicleHandlingFloat(vehicle, "CHandlingData", v) then
-                table.insert(data, {name = v, value = GetVehicleHandlingFloat(vehicle, "CHandlingData", v), type = "float"})
-            elseif vector3 and vector3 == 1 and GetVehicleHandlingVector(vehicle, "CHandlingData", v) then
-                table.insert(data, {name = v, value = GetVehicleHandlingVector(vehicle, "CHandlingData", v), type = "vector3"})
+            local int = string.find(v.name, "^n")
+            local float = string.find(v.name, "^f")
+            local vector3 = string.find(v.name, "^vec")
+            if int and int == 1 and GetVehicleHandlingInt(vehicle, "CHandlingData", v.name) then
+                table.insert(data, {name = v.name, value = GetVehicleHandlingInt(vehicle, "CHandlingData", v.name), type = "int"})
+            elseif float and float == 1 and GetVehicleHandlingFloat(vehicle, "CHandlingData", v.name) then
+                table.insert(data, {name = v.name, value = GetVehicleHandlingFloat(vehicle, "CHandlingData", v.name), type = "float"})
+            elseif vector3 and vector3 == 1 and GetVehicleHandlingVector(vehicle, "CHandlingData", v.name) then
+                table.insert(data, {name = v.name, value = GetVehicleHandlingVector(vehicle, "CHandlingData", v.name), type = "vector3"})
             end
         end
         return data
