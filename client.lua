@@ -26,12 +26,12 @@ local function constructMenu(handlingData)
         local description = "Type: ~b~" .. v.type
         for _, param in pairs(handlingVariables) do
             if param.name == v.name then
-                description = param.desc
+                description = description .. "\nDescription: ~b~" .. param.desc
                 break
             end
         end
 
-        local button = UIMenuItem.New(v.name, "Type: ~b~"..v.type.."\nDescription: ~b~"..description)
+        local button = UIMenuItem.New(v.name, description)
         button:RightLabel(v.value)
         handlingMenu:AddItem(button)
     end
