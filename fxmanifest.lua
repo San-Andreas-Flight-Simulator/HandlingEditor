@@ -4,7 +4,11 @@ game 'gta5'
 author 'Gege'
 version '1.0.0'
 description 'Vehicle handling editor'
-dependency "ScaleformUI_Lua"
+
+dependencies {
+    'ScaleformUI_Assets',
+    'ScaleformUI_Lua'
+}
 
 client_scripts {
     "@ScaleformUI_Lua/ScaleformUI.lua",
