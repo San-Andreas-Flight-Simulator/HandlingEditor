@@ -4,6 +4,7 @@ local banner = CreateDui("", 270, 151)
 CreateRuntimeTextureFromDuiHandle(txd, "menuBanner", GetDuiHandle(banner))
 local handlingMenu = UIMenu.New("Handling Editor", "Handling Editor Menu", 25, 25, true, "scaleformui", "menuBanner", 1.0)
 handlingMenu:MouseControlsEnabled(false)
+Wait(0)
 handlingMenu:MaxItemsOnScreen(10)
 
 local handlingData = {}
